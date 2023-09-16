@@ -22,11 +22,11 @@
       devShells = forAllSystems (system:
         let
           pkgs = nixpkgsFor.${system};
-          baseDeps = with pkgs; [ zig.packagers.master zls ];
+          zigPkgs = zig.packages.${system};
         in
         {
           default = pkgs.mkShell {
-            buildInputs = baseDeps ;
+            buildInputs = [ zigPkgs.master pkgs.zls ];
           };
         });
 
